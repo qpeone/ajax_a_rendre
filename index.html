@@ -1,25 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requête Ajax</title>
+</head>
+
 <body>
+    <button type="button" onclick="afficheApi()">Change Content</button>
+    <div id="post">
 
-<div id="post">
-<h2>The XMLHttpRequest Object</h2>
-<button type="button" onclick="loadDoc()">Change Content</button>
-</div>
+    </div>
+    <script>
+        function afficheApi() {
+            var xhr = new XMLHttpRequest();
 
-<script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("post").innerHTML =
-      this.responseText;
-    }
-  };
-  xhttp.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
-  xhttp.send();
-}
-</script>
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts',true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    var reponse = JSON.parse(xhr.responseText);
+                    info(reponse);
+                }
+            };
+            xhr.send();
+        }
+        function info(data) {
+            var id = document.createElement('p');
+            id.innerText = data.id;
+            var title = document.createElement('h3');
+            title.innerText = data.title;
+            var body = document.createElement('p');
+            body.innerText = data.body;
 
+
+            var container = document.getElementById('post');
+            container.innerHTML = '';
+            container.appendChild(id);
+            container.appendChild(title);
+            container.appendChild(body);
+        }
+    </script>
 </body>
+
 </html>
