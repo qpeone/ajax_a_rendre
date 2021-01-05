@@ -5,42 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requête Ajax</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#div1").load("https://jsonplaceholder.typicode.com/posts #userId");
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <button type="button" onclick="afficheApi()">Change Content</button>
-    <div id="post">
 
+    <div id="div1">
+        <h2>Requête AJAX</h2>
     </div>
-    <script>
-        function afficheApi() {
-            var xhr = new XMLHttpRequest();
 
-            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts',true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    var reponse = JSON.parse(xhr.responseText);
-                    info(reponse);
-                }
-            };
-            xhr.send();
-        }
-        function info(data) {
-            var id = document.createElement('p');
-            id.innerText = data.id;
-            var title = document.createElement('h3');
-            title.innerText = data.title;
-            var body = document.createElement('p');
-            body.innerText = data.body;
+    <button>Charge le contenu</button>
 
-
-            var container = document.getElementById('post');
-            container.innerHTML = '';
-            container.appendChild(id);
-            container.appendChild(title);
-            container.appendChild(body);
-        }
-    </script>
 </body>
 
 </html>
